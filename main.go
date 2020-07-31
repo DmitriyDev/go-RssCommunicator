@@ -37,8 +37,8 @@ func (rc Communicator) build(rq CommunicationRequest) (*http.Request, error) {
 		return nil, err
 	}
 
-	for _, header := range rq.headers {
-		req.Header.Add(header.key, header.value)
+	for _, header := range rq.Headers {
+		req.Header.Add(header.Key, header.Value)
 	}
 
 	return req, nil
