@@ -1,1 +1,4 @@
-# go-RssCommunicator
+# RssCommunicator
+
+
+Basic RSS communicator
