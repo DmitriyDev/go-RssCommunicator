@@ -2,7 +2,6 @@ package RssCommunicator
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -10,15 +9,13 @@ type Communicator struct {
 }
 
 type CommunicationHeader struct {
-	key   string
-	value string
+	Key   string
+	Value string
 }
 
 type CommunicationRequest struct {
-	method  string
-	body    string
-	url     string
-	headers []CommunicationHeader
+	Url     string
+	Headers []CommunicationHeader
 }
 
 func DefaultHeaders() []CommunicationHeader {
@@ -34,11 +31,7 @@ func DefaultHeaders() []CommunicationHeader {
 
 func (rc Communicator) build(rq CommunicationRequest) (*http.Request, error) {
 
-	if rq.method != "GET" {
-		log.Fatal("RQ Method invalid")
-	}
-
-	req, err := http.NewRequest(rq.method, rq.url, nil)
+	req, err := http.NewRequest("GET", rq.Url, nil)
 
 	if err != nil {
 		return nil, err
@@ -51,7 +44,7 @@ func (rc Communicator) build(rq CommunicationRequest) (*http.Request, error) {
 	return req, nil
 }
 
-func (rc Communicator) content(rq CommunicationRequest) (string, error) {
+func (rc Communicator) Execute(rq CommunicationRequest) (string, error) {
 
 	client := &http.Client{}
 
