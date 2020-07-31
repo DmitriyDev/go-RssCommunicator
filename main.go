@@ -41,7 +41,7 @@ func (rc Communicator) build(rq CommunicationRequest) (*http.Request, error) {
 	req, err := http.NewRequest(rq.method, rq.url, nil)
 
 	if err != nil {
-		return _, err
+		return nil, err
 	}
 
 	for _, header := range rq.headers {
@@ -60,14 +60,14 @@ func (rc Communicator) content(rq CommunicationRequest) (string, error) {
 	response, err := client.Do(req)
 
 	if err != nil {
-		return _, err
+		return "", err
 	}
 
 	body, err := ioutil.ReadAll(response.Body)
 	response.Body.Close()
 
 	if err != nil {
-		return _, err
+		return "", err
 	}
 
 	return string(body), nil
